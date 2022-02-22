@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body,
+        html {
+            height: 100%
+        }
+
+        body {
+            display: flex;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .row0 {
+            display: flex;
+            flex-direction: row;
+            height: 10%;
+        }
+
+        .row1 {
+            display: flex;
+            flex-direction: row;
+            height: 90%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .questions,
+        #enterHighScore,
+        #high-scores,
+        #score-board {
+            margin: auto;
+        }
+
+        .question {
+            color: black;
+        }
+
+        .answer {
+            color: blue;
+        }
+
+        div.answer:hover,
+        div.answer:active {
+            color: white;
+            background-color: blue;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+    <script src="./index.js"></script>
+
+</head>
+
+<body>
+    <div id="score-board" class="row0">
+        <div class="column">Seconds Remaining: <span id="timer"></span></div>
+        <div class="column">Score: <span id="score"></span></div>
+    </div>
+    <div id="second" class="row1">
+
+        <div id="questions" class="questions">
+        </div>
+        <div id="enterHighScore" class="hide">
+            <div>Save Your Score</div>
+            <label for="tbInitials">Enter your Initials</label>
+            <input type="text" id="tbInitials" placeholder="Initials here">
+            <button id="bEnterHighScore" onclick="addScore();">Submit</button>
+        </div>
+        <div id="high-scores" class="hide">
+            <div>High Scores</div>
+        </div>
+    </div>
+</body>
+<script>
+    doGame();
+</script>
+
+</html>
