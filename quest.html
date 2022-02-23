@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body,
+        html {
+            height: 100%
+        }
+
+        body {
+            display: flex;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .row0 {
+            display: flex;
+            flex-direction: row;
+            height: 10%;
+        }
+
+        .row1 {
+            display: flex;
+            flex-direction: row;
+            height: 90%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .questions,
+        #enterHighScore,
+        #high-scores,
+        #score-board {
+            margin: auto;
+        }
+
+        .question {
+            color: black;
+        }
+
+        .answer {
+            color: blue;
+        }
+
+        .checked {
+            color: lightblue;
+            border: 2px;
+            border-color: black;
+        }
+
+        div.answer:hover,
+        div.answer:active {
+            color: white;
+            background-color: blue;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid black;
+            padding: 10px;
+        }
+    </style>
+    <script src="./quest.js"></script>
+
+</head>
+
+<body>
+    <div id="game-board" class="center">
+        <div id="score-board" class="row0">
+            <div class="column">Seconds Remaining: <span id="timer"></span></div>
+            <div class="column">Score: <span id="score"></span></div>
+        </div>
+        <br />
+        <div id="second" class="row1">
+
+            <div id="questions" class="questions">
+                <div id="quest55" class="question">
+                    <div id="answer55" class="answer"></div>
+                </div>
+            </div>
+            <div id="enterHighScore" class="hide">
+                <div>Save Your Score</div>
+                <label for="tbInitials">Enter your Initials</label>
+                <input type="text" id="tbInitials" placeholder="Initials here">
+                <button id="bEnterHighScore" onclick="addScore();">Submit</button>
+            </div>
+            <div id="high-scores" class="hide">
+                <div>High Scores</div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    doGame();
+</script>
+
+</html>
