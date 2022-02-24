@@ -81,7 +81,15 @@
 
 <body>
     <div id="game-board" class="center">
-        <div id="score-board" class="row0">
+        <div id="welcome" class="row0">
+            <div>
+                <span id="timer">Test your front end developer skills by answering the following questions.</span>
+            </div>
+            <div>
+                <button id="start-quiz" onclick="doGame();">Begin</button>
+            </div>
+        </div>
+        <div id="score-board" class="row0 hide">
             <div class="column">Seconds Remaining: <span id="timer"></span></div>
             <div class="column">Score: <span id="score"></span></div>
         </div>
@@ -107,8 +115,5 @@
 
     </div>
 </body>
-<script>
-    doGame();
-</script>
 
 </html>
