@@ -91,143 +91,136 @@ function stopTheScoreInterval() {
 /************************** */
 var sQuestion = 'sQuestion';
 
-function setupQuestionSection() {
+function SetupQuestionSection() {
     //clear the timer from localstorage
     localStorage.removeItem(sQuestion);
     //set timer in local storage to sOriginalTime
     localStorage.setItem(sQuestion, `quest0`);
 }
 
-function prepareQuestionAndAnswers(questionId, i) {
-    console.log("prepareQuestionAndAnswers questionId", questionId);
+function PrepareQuestionAndAnswers(questionId, i) {
+    console.log("PrepareQuestionAndAnswers questionId", questionId);
 
-    console.log("prepareQuestionAndAnswers i", i);
+    console.log("PrepareQuestionAndAnswers i", i);
     let questionSec = document.getElementById('questions');
     let questionBlock = document.createElement('div');
     questionBlock.id = questionArr[i].id;
     questionBlock.className = "question";
-    console.log("prepareQuestionAndAnswers questionBlock", questionBlock);
+    console.log("PrepareQuestionAndAnswers questionBlock", questionBlock);
 
     let qSpan = document.createElement('span');
     qSpan.innerText = questionArr[i].question;
     questionBlock.appendChild(qSpan);
 
     if(questionArr[i].answer1){
-        let answer = document.createElement('div');
-        let chk = document.createElement('input');
-        let label = document.createElement('label');
-
-        chk.id = `${questionArr[i].id}_answer1`
-        chk.setAttribute('type','checkbox');
-        chk.value = 1;
-        chk.classList.add('answer');
-        chk.classList.add(`${questionArr[i].id}`);
-        
-        label.innerText = questionArr[i].answer1;
-        label.setAttribute('for',`${chk.id}`);
-
-        answer.classList.add('answer');
-        answer.appendChild(chk);
-        answer.appendChild(label);
-        questionBlock.appendChild(answer);
+        let answer1 = document.createElement('div');
+        answer1.innerText = questionArr[i].answer1;
+        answer1.setAttribute('onclick',`evaluateQuestion(${i},1);`);
+        answer1.classList.add('answer');
+        questionBlock.appendChild(answer1);
     }
 
     if(questionArr[i].answer2){
-        let answer = document.createElement('div');
-        let chk = document.createElement('input');
-        let label = document.createElement('label');
-
-        chk.id = `${questionArr[i].id}_answer2`
-        chk.setAttribute('type','checkbox');
-        chk.value = 2;
-        chk.classList.add('answer');
-        chk.classList.add(`${questionArr[i].id}`);
-        
-        label.innerText = questionArr[i].answer2;
-        label.setAttribute('for',`${chk.id}`);
-
-        answer.classList.add('answer');
-        answer.appendChild(chk);
-        answer.appendChild(label);
-        questionBlock.appendChild(answer);
+        let answer2 = document.createElement('div');
+        answer2.innerText = questionArr[i].answer2;
+        answer2.setAttribute('onclick',`evaluateQuestion(${i},2);`);
+        answer2.classList.add('answer');
+        questionBlock.appendChild(answer2);
     }
 
     if(questionArr[i].answer3){
-        let answer = document.createElement('div');
-        let chk = document.createElement('input');
-        let label = document.createElement('label');
-
-        chk.id = `${questionArr[i].id}_answer3`
-        chk.setAttribute('type','checkbox');
-        chk.value = 3;
-        chk.classList.add('answer');
-        chk.classList.add(`${questionArr[i].id}`);
-        
-        label.innerText = questionArr[i].answer3;
-        label.setAttribute('for',`${chk.id}`);
-
-        answer.classList.add('answer');
-        answer.appendChild(chk);
-        answer.appendChild(label);
-        questionBlock.appendChild(answer);
+        let answer3 = document.createElement('div');
+        answer3.innerText = questionArr[i].answer3;
+        answer3.setAttribute('onclick',`evaluateQuestion(${i},3);`);
+        answer3.classList.add('answer');
+        questionBlock.appendChild(answer3);
     }
 
     if(questionArr[i].answer4){
-        let answer = document.createElement('div');
-        let chk = document.createElement('input');
-        let label = document.createElement('label');
-
-        chk.id = `${questionArr[i].id}_answer4`
-        chk.setAttribute('type','checkbox');
-        chk.value = 4;
-        chk.classList.add('answer');
-        chk.classList.add(`${questionArr[i].id}`);
-        
-        label.innerText = questionArr[i].answer4;
-        label.setAttribute('for',`${chk.id}`);
-
-        answer.classList.add('answer');
-        answer.appendChild(chk);
-        answer.appendChild(label);
-        questionBlock.appendChild(answer);
-        questionBlock.appendChild
+        let answer4 = document.createElement('div');
+        answer4.innerText = questionArr[i].answer4;
+        answer4.setAttribute('onclick',`evaluateQuestion(${i},4);`);
+        answer4.classList.add('answer');
+        questionBlock.appendChild(answer4);
     }
 
-    //only show a Back button after the first question
-    if(i> 0) {
-        let btnBck = document.createElement('button');
-        btnBck.innerText = "Back";
-        btnBck.setAttribute('onclick',`getQuestion(this,${i-1});`);
-        questionBlock.appendChild(btnBck);
-        questionSec.appendChild(questionBlock);
-    }
-    
-
-    let btnNxt = document.createElement('button');
-    btnNxt.innerText = "Next";
-    btnNxt.setAttribute('onclick',`evaluateQuestion(this,${i});`);
-    questionBlock.appendChild(btnNxt);
     questionSec.appendChild(questionBlock);
-    
 }
 
-function getQuestion(questionId) {
-    console.log("getQuestion questionId", questionId);
+function NextQuestion(questionId) {
+    console.log("NextQuestion questionId", questionId);
 
     let found = false;
 
-    console.log("getQuestion questionArr", questionArr);
+
+    console.log("NextQuestion questionArr", questionArr);
     for(let i = 0; i<questionArr.length; i++) {
-        console.log("getQuestion questionArr[i]", questionArr[i]);
+        console.log("NextQuestion questionArr[i]", questionArr[i]);
         if(questionId == questionArr[i].id) {
             localStorage.setItem(sQuestion, questionId);
-            prepareQuestionAndAnswers(questionId, i);
+            PrepareQuestionAndAnswers(questionId, i);
             found = true
             break;
         }
     }
 
     return found;
+}
+
+function evaluateQuestion(questNum, answerId) {
+    console.log('evaluateQuestion questNum', questNum);
+    console.log('evaluateQuestion answerId', answerId);
+
+    let questId = questIdPrefix + `${questNum}`;
+     
+    console.log("evaluateQuestion questId ", questId);
+
+    let keepGoing = false;
+    //if the time has not elapsed continue otherwise skip to last screen.
+    if(parseInt(localStorage.getItem(timerKey)) > 0 )
+    {
+        //if the question is correct add points
+        let answer = gradeQuestion(questId, answerId);
+        console.log("evaluateQuestion answer ", answer);
+
+        if(answer)
+        {
+            let myScore = parseInt(localStorage.getItem(myScoreKey));
+            localStorage.setItem(myScoreKey, `${myScore + 10}` );
+            alert('Correct');
+            console.log("evaluateQuestion localStorage.getItem(myScoreKey) ", localStorage.getItem(myScoreKey));
+        }
+        else {
+            //else if the question is incorrect decrementTimer by 30 sec
+            decrementTimer(wrongAnswerPenalty);
+            console.log("decrementTimer wrongAnswerPenalty", wrongAnswerPenalty);
+            alert('Incorrect');
+        }
+
+        document.getElementById(questId).classList.add('hide');
+
+        let nextQuestId = questIdPrefix + `${questNum+1}`;
+        //go to next question
+        keepGoing = NextQuestion(nextQuestId)
+        console.log("NextQuestion questId", nextQuestId);
+
+        console.log("NextQuestion keepGoing", keepGoing);
+
+    }
+    else {
+        keepGoing = false;
+    }
+
+
+    if(!keepGoing) {
+        let screen = document.getElementById('enterHighScore');
+        screen.classList.remove('hide');
+        localStorage.setItem(timerKey, '0');
+        stopTimer();
+        stopTheScoreInterval();
+    }
+
+    
 }
 
 var questionArr = [];
@@ -279,12 +272,10 @@ function setupQuestionsAndAnswers() {
 
 }
 
-
-
-function gradeQuestion(questionId, answerNumber) {
+function gradeQuestion(questionId, answerId) {
     let isCorrect = false;
     for(let i=0; i< questionArr.length; i++){
-        if(questionId == questionArr[i].id &&  answerNumber == questionArr[i].correctAnswer) {
+        if(questionId == questionArr[i].id &&  answerId == questionArr[i].correctAnswer) {
             isCorrect = true;
             break;
         }
@@ -294,93 +285,18 @@ function gradeQuestion(questionId, answerNumber) {
 }
 
 
-function evaluateQuestion(element, questNum) {
-    console.log(element);
-    let questId = `quest${questNum}`
-    let checkBoxesAnswersAll = document.querySelectorAll('input:checked');
-    console.log('checkBoxesAnswersAll: ', checkBoxesAnswersAll);
-    let chkbox;
-    for(let i =0; i < checkBoxesAnswersAll.length; i++ )
-    {
-        let cbId = checkBoxesAnswersAll[i].id;
-        if(cbId.includes(`${questId}`)) {
-            chkbox = checkBoxesAnswersAll[i];
-        }
-    }
-    console.log('chkbox: ', chkbox);
-    let answerNum = chkbox.value;
-    console.log('answerNum: ', answerNum);
-
-    let keepGoing = false;
-    //if the time has not elapsed continue otherwise skip to last screen.
-    if(parseInt(localStorage.getItem(timerKey)) > 0 )
-    {
-        //if the question is correct add points
-        let answer = gradeQuestion(questId, answerNum);
-        console.log("evaluateQuestion answer ", answer);
-
-        if(answer)
-        {
-            let myScore = parseInt(localStorage.getItem(myScoreKey));
-            localStorage.setItem(myScoreKey, `${myScore + 10}` );
-            alert('Correct');
-            console.log("evaluateQuestion localStorage.getItem(myScoreKey) ", localStorage.getItem(myScoreKey));
-        }
-        else {
-            //else if the question is incorrect decrementTimer by 30 sec
-            decrementTimer(wrongAnswerPenalty);
-            console.log("decrementTimer wrongAnswerPenalty", wrongAnswerPenalty);
-            alert('Incorrect');
-        }
-
-        document.getElementById(questId).classList.add('hide');
-
-        let nextQuestId = questIdPrefix + `${questNum+1}`;
-        //go to next question
-        keepGoing = getQuestion(nextQuestId)
-        console.log("getQuestion questId", nextQuestId);
-
-        console.log("getQuestion keepGoing", keepGoing);
-
-    }
-    else {
-        keepGoing = false;
-    }
-
-
-    if(!keepGoing) {
-        let screen = document.getElementById('enterHighScore');
-        screen.classList.remove('hide');
-        localStorage.setItem(timerKey, '0');
-        stopTimer();
-        stopTheScoreInterval();
-    }
-
-}
 
 /******************* */
 
 function doGame() {
-    hideWelcome();
-    showScoreBoard();
     setupQuestionsAndAnswers();
     //set up the timer
     setUpTimer();
     setUpScore();
     startTimer();
     startShowScore();
-    setupQuestionSection();
-    getQuestion('quest0');
-}
-
-function hideWelcome() {
-    let welcome = document.getElementById('welcome');
-    welcome.classList.add('hide');
-}
-
-function showScoreBoard() {
-    let scoreboard = document.getElementById('score-board');
-    scoreboard.classList.remove('hide');
+    SetupQuestionSection();
+    NextQuestion('quest0');
 }
 
 function setUpHighScore() {
