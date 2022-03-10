@@ -278,7 +278,16 @@ function setupQuestionsAndAnswers() {
         correctAnswer:4
     };
     let question4 = {
-        id:"quest3", 
+        id:"quest4", 
+        question:"Use the _____ property to determine the width of the input field:", 
+        answer1:"width", 
+        answer2:"height", 
+        answer3:"margin", 
+        answer4:null, 
+        correctAnswer:1
+    };
+    let question5 = {
+        id:"quest5", 
         question:"Use the _____ property to determine the width of the input field:", 
         answer1:"width", 
         answer2:"height", 
@@ -291,6 +300,7 @@ function setupQuestionsAndAnswers() {
     questionArr.push(question2);
     questionArr.push(question3);
     questionArr.push(question4);
+    questionArr.push(question5);
 
     console.log("setupQuestionsAndAnswers: ", setupQuestionsAndAnswers);
 
@@ -509,6 +519,16 @@ function showHighScores() {
         console.log("hScores[i].score: ", hScores[i].score);
         console.log("hScores[i].initals: ", hScores[i].initials);
         //update here to add array values to the table.
+        let hScoretable = [highRow]
+        //create tablerow element
+        let highRow = [i, hScores[i].initials, hScores[i].score,]
+        //create 3 table data elements , 1 rank, score, initials
+
+        //define value of rank [i+1],score (hScores[i].score),initials(hScores[i].initials)
+        //apend table data to table row  apenddchild
+        appendChild.hScoretable.innerHTML
+        //apend table row to table
+        appendChild.highScores.innerHTML
         i++;
     }
 
