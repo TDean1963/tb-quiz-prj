@@ -278,21 +278,21 @@ function setupQuestionsAndAnswers() {
         correctAnswer:4
     };
     let question4 = {
-        id:"quest4", 
-        question:"Use the _____ property to determine the width of the input field:", 
-        answer1:"width", 
-        answer2:"height", 
-        answer3:"margin", 
-        answer4:null, 
-        correctAnswer:1
+        id:"quest3", 
+        question:"Which of the correct syntax to add the external stylesheet in CSS?", 
+        answer1:"<style src = quiz.css>", 
+        answer2:"style src = 'quiz.css'", 
+        answer3:"<stylesheet> quiz.css <stylesheet>", 
+        answer4:"link rel='stylesheet' type='quiz/css' href='quiz.css'", 
+        correctAnswer:4
     };
     let question5 = {
-        id:"quest5", 
-        question:"Use the _____ property to determine the width of the input field:", 
-        answer1:"width", 
-        answer2:"height", 
-        answer3:"margin", 
-        answer4:null, 
+        id:"quest4", 
+        question:"How do we set the default width of the font in CSS?", 
+        answer1:"font stretch", 
+        answer2:"font-weight", 
+        answer3:"text-transform", 
+        answer4:"font-variant", 
         correctAnswer:1
     };
 
